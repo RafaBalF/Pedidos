@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:pedidos/menu.dart';
@@ -60,6 +60,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   PageController page = PageController();
+
+  get source => null;
   @override
   Widget build(BuildContext context) {
     var pedidos = Pedidos.fromJson(widget.json);
@@ -99,9 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: 10,
                     ),
                     FloatingActionButton(
-                      onPressed: () {
-                        final play = AudioPlayer();
-                        play.play(AssetSource("Mud_Lonely_This_Christmas.mp3"));
+                      onPressed: () async {
+                        final player = AudioPlayer();
+                        final duration = await player
+                            .setAsset('assets/Mud_Lonely_This_Christmas.mp3');
+                        player.play();
+                        //final duration = await player.
                       },
                       backgroundColor: Colors.green,
                       child: Icon(Icons.power_settings_new),
